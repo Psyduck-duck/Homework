@@ -19,6 +19,11 @@ def mask_account_card(card_data: str) -> str:
     return " ".join(new_card_data_list) + ' ' + mask_number
 
 
+def get_data(time_data: str) -> str:
+    new_time_data = time_data[8:10] + '.' + time_data[5:7] + '.' + time_data[0:4]
+    return new_time_data
+
+
 data = ['Maestro 1596837868705199',
 'Счет 64686473678894779589',
 'MasterCard 7158300734726758',
@@ -31,3 +36,5 @@ data = ['Maestro 1596837868705199',
 if __name__ == '__main__':
     for i in data:
         print(mask_account_card(i))
+
+    print(get_data('2024-03-11T02:26:18.671407'))
