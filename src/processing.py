@@ -9,6 +9,13 @@ def filter_by_state(operation_list: list, state: str = "EXECUTED") -> list:
     return new_list
 
 
+def sort_by_date(operation_list: list, reverse_: bool = True) -> list:
+    sorted_list = sorted(
+        operation_list, key=lambda x: ".".join(reversed((get_data(x["date"]).split(".")))), reverse=reverse_
+    )
+    return sorted_list
+
+
 if __name__ == "__main__":
     data_for_test = [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -24,5 +31,5 @@ if __name__ == "__main__":
         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
     ]
 
-    # print(filter_by_state(data_for_test, 'CANCELED'))
-    # print(sort_by_date(data_for_test_1))
+    #print(filter_by_state(data_for_test, 'CANCELED'))
+    #print(sort_by_date(data_for_test_1))
