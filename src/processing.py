@@ -2,6 +2,9 @@ from widget import get_data
 
 
 def filter_by_state(operation_list: list, state: str = "EXECUTED") -> list:
+    """Функция возвращает новый список словарей, содержащий только те словари, у которых ключ
+    state
+     соответствует указанному значению"""
     new_list = []
     for dict in operation_list:
         if dict["state"] == state:
@@ -10,6 +13,7 @@ def filter_by_state(operation_list: list, state: str = "EXECUTED") -> list:
 
 
 def sort_by_date(operation_list: list, reverse_: bool = True) -> list:
+    """Функция возвращает новый список, отсортированный по дате (date)"""
     sorted_list = sorted(
         operation_list, key=lambda x: ".".join(reversed((get_data(x["date"]).split(".")))), reverse=reverse_
     )
@@ -31,5 +35,5 @@ if __name__ == "__main__":
         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
     ]
 
-    #print(filter_by_state(data_for_test, 'CANCELED'))
-    #print(sort_by_date(data_for_test_1))
+    # print(filter_by_state(data_for_test, 'CANCELED'))
+    # print(sort_by_date(data_for_test_1))
