@@ -1,6 +1,6 @@
 def get_mask_card_number(num_card: int) -> str:
     """принимает на вход номер карты и возвращает ее маску"""
-    if type(num_card) != int:
+    if type(num_card) is not int:
         raise TypeError('Некорректный формат данных!')
 
     if len(str(num_card)) == 16:
@@ -12,7 +12,7 @@ def get_mask_card_number(num_card: int) -> str:
 
 def get_mask_account(num_account: int) -> str:
     """принимает на вход номер счета и возвращает его маску"""
-    if type(num_account) != int:
+    if type(num_account) is not int:
         raise TypeError('Некоректный формат данных!')
 
     if len(str(num_account)) == 20:
