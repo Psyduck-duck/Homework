@@ -2,9 +2,8 @@
 
 
 def filter_by_currency(operation_list: list, currency: str):
-    return (x for x in operation_list if x['operationAmount']['currency']['name'] == currency)
+    return (x for x in operation_list if x['operationAmount']['currency']['code'] == currency)
 
-#usd_trans = filter_by_currency(operation_list, 'USD')
 
-#for i in range(3):
-    print(next(usd_trans))
+def transaction_descriptions(operation_list):
+    return (x['description'] for x in operation_list)
