@@ -1,6 +1,6 @@
 import pytest
 
-from src.generators import filter_by_currency
+from src.generators import filter_by_currency, transaction_descriptions
 
 
 @pytest.fixture
@@ -65,3 +65,27 @@ def test_filter_by_currency(some_data):
         "from": "Счет 75106830613657916952",
         "to": "Счет 11776614605963066702",
     }
+    assert next(usd_trans) == {
+        "id": 142264268,
+        "state": "EXECUTED",
+        "date": "2019-04-04T23:20:05.206878",
+        "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод со счета на счет",
+        "from": "Счет 19708645243227258542",
+        "to": "Счет 75651667383060284188",
+    }
+
+
+def test_filter_by_invalid_currency(some_data):
+    trans = filter_by_currency(some_data, "")
+    with pytest.raises(StopIteration):
+        next(trans)
+
+
+def test_transaction_descriptions(some_data):
+    trans = transaction_descriptions(some_data)
+    assert next(trans) == 'Перевод организации'
+    assert next(trans) == 'Перевод со счета на счет'
+    assert next(trans) == 'Перевод со счета на счет'
+    assert next(trans) == 'Перевод с карты на карту'
+    assert next(trans) == 'Перевод организации'
