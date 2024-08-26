@@ -102,4 +102,7 @@ def test_card_number_generator():
     ]
     assert list(card_number_generator(123456, 123459)) == expexted_result_1
     assert list(card_number_generator(1, 5)) == expexted_result_2
-    assert list(card_number_generator(3, 1)) == ['Некорректные параметры']
+    assert list(card_number_generator(3, 1)) == []
+
+    with pytest.raises(ValueError):
+        list(card_number_generator(-1 , 1))
