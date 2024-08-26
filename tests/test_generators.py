@@ -1,6 +1,6 @@
 import pytest
 
-from src.generators import filter_by_currency, transaction_descriptions
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 @pytest.fixture
@@ -84,8 +84,22 @@ def test_filter_by_invalid_currency(some_data):
 
 def test_transaction_descriptions(some_data):
     trans = transaction_descriptions(some_data)
-    assert next(trans) == 'Перевод организации'
-    assert next(trans) == 'Перевод со счета на счет'
-    assert next(trans) == 'Перевод со счета на счет'
-    assert next(trans) == 'Перевод с карты на карту'
-    assert next(trans) == 'Перевод организации'
+    assert next(trans) == "Перевод организации"
+    assert next(trans) == "Перевод со счета на счет"
+    assert next(trans) == "Перевод со счета на счет"
+    assert next(trans) == "Перевод с карты на карту"
+    assert next(trans) == "Перевод организации"
+
+
+def test_card_number_generator():
+    expexted_result_1 = ["0000 0000 0012 3456", "0000 0000 0012 3457", "0000 0000 0012 3458", "0000 0000 0012 3459"]
+    expexted_result_2 = [
+        "0000 0000 0000 0001",
+        "0000 0000 0000 0002",
+        "0000 0000 0000 0003",
+        "0000 0000 0000 0004",
+        "0000 0000 0000 0005",
+    ]
+    assert list(card_number_generator(123456, 123459)) == expexted_result_1
+    assert list(card_number_generator(1, 5)) == expexted_result_2
+    assert list(card_number_generator(3, 1)) == ['Некорректные параметры']
