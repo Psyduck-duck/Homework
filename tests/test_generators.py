@@ -105,4 +105,4 @@ def test_card_number_generator():
     assert list(card_number_generator(3, 1)) == []
 
     with pytest.raises(ValueError):
-        list(card_number_generator(-1 , 1))
+        list(card_number_generator(-1, 1))
