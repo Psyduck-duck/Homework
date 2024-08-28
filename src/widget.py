@@ -33,7 +33,7 @@ def get_data(time_data: str) -> str:
     и возвращает в формате 11.03.2024"""
 
     if int(time_data[8:10]) < 1 or int(time_data[8:10]) > 31 or int(time_data[5:7]) < 1 or int(time_data[5:7]) > 12:
-        raise ValueError('Некорректно введена дата')
+        raise ValueError("Некорректно введена дата")
 
     new_time_data = time_data[8:10] + "." + time_data[5:7] + "." + time_data[0:4]
 
