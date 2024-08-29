@@ -15,7 +15,7 @@ def test_log_decorator_without_file_name(capsys):
 
     some_func(1, y=0)
     captured = capsys.readouterr()
-    assert captured.out == "some_func 1 time: 0.0\n"
+    assert captured.out == "some_func 1\n"
 
 
 def test_log_decorator_without_file_name_Exeption(capsys):
@@ -41,7 +41,7 @@ def test_log_decorator_with_filename():
     some_func()
     with open("filename.txt", "r", encoding="utf8") as file:
         content = file.read()
-        assert content == "some_func None time: 0.0"
+        assert content == "some_func None"
 
 
 def test_log_decorator_with_filename_Exeption():
