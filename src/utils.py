@@ -1,5 +1,5 @@
-import os
 import json
+import os
 
 from external_api import converte_currency
 
