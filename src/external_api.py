@@ -16,7 +16,7 @@ def converte_currency(base_carrency: str, end_carrency: str, amount: float) -> f
     responce = requests.get(url, headers=headers)
     if responce.status_code != 200:
         raise ValueError("Check URL")
-    return responce.json()["result"]
+    return float(responce.json()["result"])
 
 
 if __name__ == "__main__":
