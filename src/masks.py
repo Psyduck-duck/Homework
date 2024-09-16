@@ -4,7 +4,7 @@ import logging
 logging.basicConfig(
     level=logging.DEBUG,
     filename="../logs/masks.log",
-    format="%(asctime)s %(levelname)s: %(message)s",
+    format="%(asctime)s %(filename)s %(levelname)s: %(message)s",
     encoding="utf8",
     filemode="w",
 )
@@ -26,7 +26,7 @@ def get_mask_card_number(num_card: int) -> str:
 
     if len(str(num_card)) == 16:
 
-        mask_card_logger.info("Создана маска для номера карты")
+        mask_card_logger.info("Создана маска для номера карты, функция завершает работу")
 
         return str(num_card)[0:4] + " " + str(num_card)[4:6] + "** **** " + str(num_card)[-4:]
 
@@ -50,7 +50,7 @@ def get_mask_account(num_account: int) -> str:
 
     if len(str(num_account)) == 20:
 
-        mask_account_loger.info("Создана маска для номера счета")
+        mask_account_loger.info("Создана маска для номера счета, функция завершает работу")
 
         return "**" + str(num_account)[-4:]
 
