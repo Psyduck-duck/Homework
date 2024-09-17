@@ -3,7 +3,6 @@ import logging
 
 from src.external_api import converte_currency
 
-
 logging.basicConfig(
     level=logging.DEBUG,
     filename="../logs/utils.log",
@@ -96,6 +95,6 @@ def get_amount_transaction(filename: str, id: int) -> float:
     return float(amount)
 
 
-#print(get_operations_data("example.json"))
-#print(get_amount_transaction("operations.json",1))
-#print(get_amount_transaction("operations.json",104807525))
+# print(get_operations_data("example.json"))
+# print(get_amount_transaction("operations.json",1))
+# print(get_amount_transaction("operations.json",104807525))

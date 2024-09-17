@@ -1,6 +1,5 @@
 import logging
 
-
 logging.basicConfig(
     level=logging.DEBUG,
     filename="../logs/masks.log",
