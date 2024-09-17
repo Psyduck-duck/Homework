@@ -7,7 +7,7 @@ from src.external_api import converte_currency
 logging.basicConfig(
     level=logging.DEBUG,
     filename="../logs/utils.log",
-    format="%(asctime)s %(filename)s %(levelname)s: %(message)s",
+    format="%(asctime)s %(filename)s %(name)s %(levelname)s: %(message)s",
     encoding="utf8",
     filemode="w",
 )
@@ -61,38 +61,41 @@ def get_amount_transaction(filename: str, id: int) -> float:
     get_amount_transaction_logger.info(f"Попытка получить данные из {filename}")
 
     operations_data = get_operations_data(filename)
-    for operation in operations_data:
-        if operation["id"] == id:
+    operations_data_id = (operation for operation in operations_data if operation.get("id") == id)
 
-            get_amount_transaction_logger.info("Получение суммы операции и кода валюты")
+    try:
+        operation = next(operations_data_id)
+    except StopIteration:
+        get_amount_transaction_logger.error("ID not found")
 
-            amount = operation["operationAmount"]["amount"]
-            currency_code = operation["operationAmount"]["currency"]["code"]
+        raise KeyError("ID not found")
 
-            if currency_code != "RUB":
+    get_amount_transaction_logger.info("Получение суммы операции и кода валюты")
 
-                get_amount_transaction_logger.info("Перевод валюты в рубли по актуальному курсу")
+    amount = operation["operationAmount"]["amount"]
+    currency_code = operation["operationAmount"]["currency"]["code"]
 
-                try:
+    if currency_code != "RUB":
 
-                    result = converte_currency(currency_code, "RUB", amount)
-                    result = round(result, 2)
+        get_amount_transaction_logger.info("Перевод валюты в рубли по актуальному курсу")
 
-                except Exception as e:
+        try:
 
-                    get_amount_transaction_logger.error(f"Вызов исключения {e}, проблемы с обработкой валюты")
+            result = converte_currency(currency_code, "RUB", amount)
+            result = round(result, 2)
 
-                get_amount_transaction_logger.info("Возвращение результата, завершение работы функции")
+        except Exception as e:
 
-                return result
+            get_amount_transaction_logger.error(f"Вызов исключения {e}, проблемы с обработкой валюты")
 
-            get_amount_transaction_logger.info("Возвращенеи результата, завершение работы функции")
-            return float(amount)
+        get_amount_transaction_logger.info("Возвращение результата, завершение работы функции")
 
-    #if not id_in_data:
-     #   get_amount_transaction_logger.error("Вызов исключения 'KeyError', ID не найдено")
-      #  raise KeyError("ID not found")
+        return result
+
+    get_amount_transaction_logger.info("Возвращенеи результата, завершение работы функции")
+    return float(amount)
 
 
 #print(get_operations_data("example.json"))
 #print(get_amount_transaction("operations.json",1))
+#print(get_amount_transaction("operations.json",104807525))
