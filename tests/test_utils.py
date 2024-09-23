@@ -35,7 +35,7 @@ def test_get_operations_data_invalid_path():
 
 
 def test_get_amount_transaction():
-    assert get_amount_transaction(587085106) == 48223.05
+    assert get_amount_transaction("operations.json",587085106) == 48223.05
 
 
 @patch("requests.get")
@@ -43,7 +43,7 @@ def test_get_amount_transaction_with_USD(mock_get):
     mock_get.return_value.status_code = 200
     mock_get.return_value.json.return_value = {"result": 30}
     headers = {"apikey": apilayer_API_KEY}
-    assert get_amount_transaction(41428829) == 30  # 8221.37 USD
+    assert get_amount_transaction("operations.json",41428829) == 30  # 8221.37 USD
     mock_get.assert_called_once_with(
         f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount=8221.37", headers=headers
     )
@@ -51,7 +51,7 @@ def test_get_amount_transaction_with_USD(mock_get):
 
 def test_get_amount_transaction_unvalid_id():
     with pytest.raises(KeyError):
-        get_amount_transaction(123)
+        get_amount_transaction("operations.json",123)
 
 
 @patch("src.utils.get_operations_data")
@@ -74,4 +74,4 @@ def test_get_amount_transaction_invalid_operations_data(mock_get):
         }
     ]
     with pytest.raises(KeyError):
-        get_amount_transaction(441945886)
+        get_amount_transaction("operations.json",441945886)
