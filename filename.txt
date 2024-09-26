@@ -1,0 +1,1 @@
+some_func error: TypeError. Input: ((1,), {'y': '0'})
