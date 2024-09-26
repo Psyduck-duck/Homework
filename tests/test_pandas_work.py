@@ -11,13 +11,13 @@ from src.pandas_work import read_csv_file, read_excel_file
 @patch("src.pandas_work.pd.read_csv")
 def test_read_csv_file(mock_read):
     mock_read.return_value = pd.DataFrame({"test1": [1], "test2": [2]})
-    assert (read_csv_file("../data/example.csv") == [{"test1": 1, "test2": 2}])
+    assert read_csv_file("../data/example.csv") == [{"test1": 1, "test2": 2}]
 
 
 @patch("src.pandas_work.pd.read_csv")
 def test_read_csv_file_empty_df(mock_read):
     mock_read.return_value = pd.DataFrame({"": []})
-    assert (read_csv_file("../data/example.csv") == [])
+    assert read_csv_file("../data/example.csv") == []
 
 
 def test_read_csv_file_invalid_path():
