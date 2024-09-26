@@ -28,7 +28,7 @@ def mask_account_card(card_data: str) -> str:
     return " ".join(new_card_data_list) + " " + mask_number
 
 
-def get_data(time_data: str) -> str:
+def get_date(time_data: str) -> str:
     """Принимает время формата 2024-03-11T02:26:18.671407
     и возвращает в формате 11.03.2024"""
 

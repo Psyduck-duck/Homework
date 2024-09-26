@@ -17,7 +17,7 @@ def sort_operation_data_by_description(operations_data: list[dict], description:
 
 
 def counter_operations_data(operations_data: list[dict], category_list: list) -> dict:
-    """Функция принимает лист словарей с данными о транзакциях, возвращает подсчет транзакций"""
+    """Функция принимает список словарей с данными о транзакциях, возвращает подсчет транзакций"""
     op_dict = defaultdict(int)
     for operation in operations_data:
         category = str(operation["description"])
