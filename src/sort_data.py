@@ -1,6 +1,5 @@
 import re
-from collections import Counter
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 from src.pandas_work import read_csv_file
 

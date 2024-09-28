@@ -1,13 +1,14 @@
-import os
 import json
 import logging
+import os
 
-from src.external_api import converte_currency
 from data.__init__ import PATH_TO_DATA_DIRECTORY
+from logs.__init__ import PATH_TO_LOGS_DIRECTORY
+from src.external_api import converte_currency
 
 logging.basicConfig(
     level=logging.DEBUG,
-    filename="../logs/utils.log",
+    filename=os.path.join(PATH_TO_LOGS_DIRECTORY, "utils.log"),
     format="%(asctime)s %(filename)s %(name)s %(levelname)s: %(message)s",
     encoding="utf8",
     filemode="w",
@@ -97,7 +98,7 @@ def get_amount_transaction(filename: str, id: int) -> float:
     return float(amount)
 
 
-print(get_operations_data("operations.json"))
+#print(get_operations_data("operations.json"))
 #print(get_amount_transaction("operations.json",1))
 #print(get_amount_transaction("operations.json",104807525))
 #print(PATH_TO_DATA_DIRECTORY)

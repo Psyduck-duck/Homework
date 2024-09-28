@@ -17,6 +17,7 @@ def read_excel_file(path_to_file: str) -> list[dict]:
     return df_dict
 
 #print(read_csv_file("../data/transactions.csv"))
-#print(read_excel_file("../data/transactions_excel.xlsx"))
+#for i in read_excel_file("../data/transactions_excel.xlsx"):
+    print(i)
 #for i in read_csv_file("../data/transactions.csv"):
     #print(i)
