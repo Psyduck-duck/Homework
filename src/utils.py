@@ -1,7 +1,9 @@
+import os
 import json
 import logging
 
 from src.external_api import converte_currency
+from data.__init__ import PATH_TO_DATA_DIRECTORY
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -20,7 +22,7 @@ def get_operations_data(filename: str) -> list:
 
     get_operations_data_logger.info(f"Задается путь до {filename}")
 
-    path_to_file = f"../data/{filename}"
+    path_to_file = os.path.join(PATH_TO_DATA_DIRECTORY, filename)
 
     try:
         get_operations_data_logger.info(f"Попытка открыть {filename}")
@@ -95,6 +97,7 @@ def get_amount_transaction(filename: str, id: int) -> float:
     return float(amount)
 
 
-# print(get_operations_data("example.json"))
-# print(get_amount_transaction("operations.json",1))
-# print(get_amount_transaction("operations.json",104807525))
+print(get_operations_data("operations.json"))
+#print(get_amount_transaction("operations.json",1))
+#print(get_amount_transaction("operations.json",104807525))
+#print(PATH_TO_DATA_DIRECTORY)
