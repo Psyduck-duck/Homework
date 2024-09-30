@@ -115,20 +115,24 @@ def main():
         sorted_operations_data = sort_operation_data_by_description(sorted_operations_data, sort_by_description_words)
 
     print("Распечатываю итоговый список транзакций...")
-    print(f"Всего банковских операций в выборке: {len(sorted_operations_data)}")
-    if answer == "1":
-        for operation in sorted_operations_data:
-            print(
-                f"""{get_date(operation.get("date"))} {operation.get("description")}
-{mask_account_card(operation.get("from"))} -> {mask_account_card(operation.get("to"))}
-Сумма: {operation.get("operationAmount").get("amount")},  Валюта: {operation.get("operationAmount").get("currency").get("code")}
-    """
-            )
+    if len(sorted_operations_data):
+        print(f"Всего банковских операций в выборке: {len(sorted_operations_data)}")
+        if answer == "1":
+            for operation in sorted_operations_data:
+                print(
+                    f"""{get_date(operation.get("date"))} {operation.get("description")}
+    {mask_account_card(operation.get("from"))} -> {mask_account_card(operation.get("to"))}
+    Сумма: {operation.get("operationAmount").get("amount")},  Валюта: {operation.get("operationAmount").get("currency").get("code")}
+        """
+                )
+        else:
+            for operation in sorted_operations_data:
+                print(
+                    f"""{get_date(operation.get("date"))} {operation.get("description")}
+    {mask_account_card(operation.get("from"))} -> {mask_account_card(operation.get("to"))}
+    Сумма: {operation.get("amount")}, Валюта: {operation.get("currency_code")}
+        """
+                )
+
     else:
-        for operation in sorted_operations_data:
-            print(
-                f"""{get_date(operation.get("date"))} {operation.get("description")}
-{mask_account_card(operation.get("from"))} -> {mask_account_card(operation.get("to"))}
-Сумма: {operation.get("amount")}, Валюта: {operation.get("currency_code")}
-    """
-            )
+        print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
