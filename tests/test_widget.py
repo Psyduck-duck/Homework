@@ -1,6 +1,6 @@
 import pytest
 
-from src.widget import get_data, mask_account_card
+from src.widget import get_date, mask_account_card
 
 
 @pytest.mark.parametrize(
@@ -35,15 +35,15 @@ def test_mask_account_card_invalid_input():
         ("2014-02-21T02:26:18.671407", "21.02.2014"),
     ],
 )
-def test_get_data(date, expected):
-    get_data(date) == expected
+def test_get_date(date, expected):
+    assert get_date(date) == expected
 
 
 def test_get_data_invalid_date():
     with pytest.raises(ValueError):
-        get_data("2024-13-11T02:26:18.671407")
-        get_data("2024-10-32T02:26:18.671407")
+        get_date("2024-13-11T02:26:18.671407")
+        get_date("2024-10-32T02:26:18.671407")
 
 
 def test_get_data_short_date():
-    assert get_data("2024-12-12") == "12.12.2024"
+    assert get_date("2024-12-12") == "12.12.2024"

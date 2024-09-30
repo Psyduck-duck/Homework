@@ -1,3 +1,5 @@
+import re
+
 from src.masks import get_mask_account, get_mask_card_number
 
 
@@ -5,7 +7,10 @@ def mask_account_card(card_data: str) -> str:
     """Принимает информация о карте или счете
     и возвращает соответсвующую маску"""
 
-    card_data_list = card_data.split()
+    try:
+        card_data_list = card_data.split()
+    except AttributeError:
+        return "not identified"
     new_card_data_list = []
     mask_number = ""
 
@@ -17,10 +22,10 @@ def mask_account_card(card_data: str) -> str:
         else:
 
             if len(str(card_data_list_item)) == 16:
-                mask_number = get_mask_card_number(int(card_data_list_item))
+                mask_number = get_mask_card_number(card_data_list_item)
 
             elif len(str(card_data_list_item)) == 20:
-                mask_number = get_mask_account(int(card_data_list_item))
+                mask_number = get_mask_account(card_data_list_item)
 
             else:
                 raise ValueError("Некорректный номер карты или счета")
@@ -28,13 +33,20 @@ def mask_account_card(card_data: str) -> str:
     return " ".join(new_card_data_list) + " " + mask_number
 
 
-def get_data(time_data: str) -> str:
+def get_date(time_data: str) -> str:
     """Принимает время формата 2024-03-11T02:26:18.671407
     и возвращает в формате 11.03.2024"""
 
-    if int(time_data[8:10]) < 1 or int(time_data[8:10]) > 31 or int(time_data[5:7]) < 1 or int(time_data[5:7]) > 12:
-        raise ValueError("Некорректно введена дата")
+    pattern = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 
-    new_time_data = time_data[8:10] + "." + time_data[5:7] + "." + time_data[0:4]
-
-    return new_time_data
+    match = pattern.match(time_data)
+    if match:
+        if int(match.group(3)) < 0 or int(match.group(3)) > 31:
+            raise ValueError("Incorrect date")
+        if int(match.group(2)) < 1 or int(match.group(2)) > 12:
+            raise ValueError("Incorrect date")
+        if int(match.group(1)) < 0:
+            raise ValueError("Incorrect date")
+        return f"{match.group(3)}.{match.group(2)}.{match.group(1)}"
+    else:
+        return ""
