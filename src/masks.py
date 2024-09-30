@@ -15,22 +15,22 @@ mask_card_logger = logging.getLogger("masks_card_loger")
 mask_account_loger = logging.getLogger("masks_account_logger")
 
 
-def get_mask_card_number(num_card: int) -> str:
+def get_mask_card_number(num_card: str) -> str:
     """принимает на вход номер карты и возвращает ее маску"""
 
     mask_card_logger.info(f"Попытка обработать карту с номером: {num_card}")
 
-    if type(num_card) is not int:
+    if not num_card.isdigit():
 
-        mask_card_logger.error(f"Вызов исключения 'TypeError', номер карты не целое число ")
+        mask_card_logger.error(f"Вызов исключения 'TypeError', номер карты не число ")
 
         raise TypeError("Некорректный формат данных!")
 
-    if len(str(num_card)) == 16:
+    if len(num_card) == 16:
 
         mask_card_logger.info("Создана маска для номера карты, функция завершает работу")
 
-        return str(num_card)[0:4] + " " + str(num_card)[4:6] + "** **** " + str(num_card)[-4:]
+        return num_card[0:4] + " " + num_card[4:6] + "** **** " + num_card[-4:]
 
     else:
 
@@ -39,22 +39,22 @@ def get_mask_card_number(num_card: int) -> str:
         raise ValueError("Некорректный номер карты!")
 
 
-def get_mask_account(num_account: int) -> str:
+def get_mask_account(num_account: str) -> str:
     """принимает на вход номер счета и возвращает его маску"""
 
     mask_account_loger.info(f"Попытка создать маску для номера счета {num_account}")
 
-    if type(num_account) is not int:
+    if not num_account.isdigit():
 
-        mask_account_loger.error("Вызов исключения 'TypeError', номер счета не целое число")
+        mask_account_loger.error("Вызов исключения 'TypeError', номер счета не число")
 
         raise TypeError("Некоректный формат данных!")
 
-    if len(str(num_account)) == 20:
+    if len(num_account) == 20:
 
         mask_account_loger.info("Создана маска для номера счета, функция завершает работу")
 
-        return "**" + str(num_account)[-4:]
+        return "**" + num_account[-4:]
 
     else:
 
