@@ -1,8 +1,12 @@
+import datetime
+
 import pandas as pd
 
 from src.pandas_work import read_csv_file, read_excel_file
 from src.sort_data import sort_operation_data_by_description
 from src.utils import get_operations_data
+from src.widget import get_date, mask_account_card
+from src.processing import filter_by_state, sort_by_date
 
 
 def main():
@@ -46,16 +50,16 @@ def main():
     print("Отсортировать операции по дате? Да/Нет")
     sort_answer = ""
     sort_data = False
+    sort_revers = False
     while sort_answer not in ["да", "нет"]:
         sort_answer = input("Введите ответ: ").lower()
         if sort_answer == "да":
             sort_data = True
             print("Отсортировать по возрастанию или по убыванию? по возрастанию/по убыванию")
             sort_course = ""
-            sort_revers = False
             while sort_course not in ["по возрастанию", "по убыванию"]:
                 sort_course = input("Введите ответ: ").lower()
-                if sort_course == "по возрастанию":
+                if sort_course == "по убыванию":
                     sort_revers = True
 
     print("Программа: Выводить только рублевые тразакции? Да/Нет")
@@ -87,14 +91,10 @@ def main():
     elif answer == "3":
         operations_data = read_excel_file("data/transactions_excel.xlsx")
 
-    sorted_operations_data = []
-
-    for operation in operations_data:
-        if operation.get("state") == choice:
-            sorted_operations_data.append(operation)
+    sorted_operations_data = filter_by_state(operations_data, choice)
 
     if sort_data:
-        pass
+        sorted_operations_data = sort_by_date(sorted_operations_data, sort_revers)
 
     if is_currency_rub_bool:
         empty_list = []
@@ -119,17 +119,16 @@ def main():
     if answer == "1":
         for operation in sorted_operations_data:
             print(
-                f"""{operation.get("date")} {operation.get("description")}
-{operation.get("from")} -> {operation.get("to")}
-Сумма: {operation["operationAmount"]["amount"]}"""
+                f"""{get_date(operation.get("date"))} {operation.get("description")}
+{mask_account_card(operation.get("from"))} -> {mask_account_card(operation.get("to"))}
+Сумма: {operation.get("operationAmount").get("amount")},  Валюта: {operation.get("operationAmount").get("currency").get("code")}
+    """
             )
     else:
         for operation in sorted_operations_data:
             print(
-                f"""{operation.get("date")} {operation.get("description")}
-{operation.get("from")} -> {operation.get("to")}
-Сумма: {operation.get("amount")}"""
+                f"""{get_date(operation.get("date"))} {operation.get("description")}
+{mask_account_card(operation.get("from"))} -> {mask_account_card(operation.get("to"))}
+Сумма: {operation.get("amount")}, Валюта: {operation.get("currency_code")}
+    """
             )
-
-
-main()
