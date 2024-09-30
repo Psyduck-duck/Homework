@@ -7,7 +7,10 @@ def mask_account_card(card_data: str) -> str:
     """Принимает информация о карте или счете
     и возвращает соответсвующую маску"""
 
-    card_data_list = card_data.split()
+    try:
+        card_data_list = card_data.split()
+    except AttributeError:
+        return "not identified"
     new_card_data_list = []
     mask_number = ""
 
@@ -19,10 +22,10 @@ def mask_account_card(card_data: str) -> str:
         else:
 
             if len(str(card_data_list_item)) == 16:
-                mask_number = get_mask_card_number(int(card_data_list_item))
+                mask_number = get_mask_card_number(card_data_list_item)
 
             elif len(str(card_data_list_item)) == 20:
-                mask_number = get_mask_account(int(card_data_list_item))
+                mask_number = get_mask_account(card_data_list_item)
 
             else:
                 raise ValueError("Некорректный номер карты или счета")
