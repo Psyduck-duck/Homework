@@ -40,11 +40,13 @@ def get_date(time_data: str) -> str:
     pattern = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 
     match = pattern.match(time_data)
-
-    if int(match.group(3)) < 0 or int(match.group(3)) > 31:
-        raise ValueError ("Incorrect date")
-    if int(match.group(2)) < 1 or int(match.group(2)) > 12:
-        raise ValueError("Incorrect date")
-    if int(match.group(1)) < 0:
-        raise ValueError("Incorrect date")
-    return f"{match.group(3)}.{match.group(2)}.{match.group(1)}"
+    if match:
+        if int(match.group(3)) < 0 or int(match.group(3)) > 31:
+            raise ValueError ("Incorrect date")
+        if int(match.group(2)) < 1 or int(match.group(2)) > 12:
+            raise ValueError("Incorrect date")
+        if int(match.group(1)) < 0:
+            raise ValueError("Incorrect date")
+        return f"{match.group(3)}.{match.group(2)}.{match.group(1)}"
+    else:
+        return ""

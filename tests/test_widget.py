@@ -36,7 +36,7 @@ def test_mask_account_card_invalid_input():
     ],
 )
 def test_get_date(date, expected):
-    get_date(date) == expected
+    assert get_date(date) == expected
 
 
 def test_get_data_invalid_date():
