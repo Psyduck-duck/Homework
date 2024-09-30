@@ -98,7 +98,7 @@ def get_amount_transaction(filename: str, id: int) -> float:
     return float(amount)
 
 
-#print(get_operations_data("operations.json"))
-#print(get_amount_transaction("operations.json",1))
-#print(get_amount_transaction("operations.json",104807525))
-#print(PATH_TO_DATA_DIRECTORY)
+# print(get_operations_data("operations.json"))
+# print(get_amount_transaction("operations.json",1))
+# print(get_amount_transaction("operations.json",104807525))
+# print(PATH_TO_DATA_DIRECTORY)

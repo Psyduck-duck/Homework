@@ -6,7 +6,7 @@ from src.pandas_work import read_csv_file
 
 def sort_operation_data_by_description(operations_data: list[dict], description: str) -> list[dict]:
     """Функция принимает список словарей с данными о транзакциях и фильтрует по описанию"""
-    #pattern = re.compile(description)
+    # pattern = re.compile(description)
     sorted_list = []
     for operation in operations_data:
         if description.lower() in str(operation["description"]).lower():

@@ -42,7 +42,7 @@ def get_date(time_data: str) -> str:
     match = pattern.match(time_data)
     if match:
         if int(match.group(3)) < 0 or int(match.group(3)) > 31:
-            raise ValueError ("Incorrect date")
+            raise ValueError("Incorrect date")
         if int(match.group(2)) < 1 or int(match.group(2)) > 12:
             raise ValueError("Incorrect date")
         if int(match.group(1)) < 0:
